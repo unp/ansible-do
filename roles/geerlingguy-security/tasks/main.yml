@@ -1,0 +1,5 @@
+- name: Include external/ansible-galaxy role
+  ansible.builtin.include_role:
+    name: geerlingguy.security
+  become: yes
+  vars_from: "main"

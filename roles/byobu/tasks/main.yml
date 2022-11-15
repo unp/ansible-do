@@ -1,0 +1,23 @@
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: install basic utility software
+  package:
+    name:
+    - git
+    - vim
+    - nano
+    - curl
+    - wget
+    state: latest
+    update_cache: yes
+  become: yes
+
+- include: byobu.yml
+
+- name: Set timezone to America/New_York
+  community.general.timezone:
+    name: America/New_York
+  become: yes

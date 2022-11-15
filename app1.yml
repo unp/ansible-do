@@ -1,0 +1,9 @@
+- name: Install software
+  hosts: 
+    - ansible-dev-1
+  remote_user: deploy
+  roles:
+    - app1
+  become: yes
+#    - db
+#    - app2

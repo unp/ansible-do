@@ -1,0 +1,25 @@
+- name: Install base software
+  hosts:
+    - ansible-dev-1
+  remote_user: root
+  roles:
+    - deploy-user
+
+- name: Install base software
+  hosts:
+    - ansible-dev-1
+  remote_user: deploy
+  roles:
+    - github-authorized-keys
+    - byobu
+    - toolbox
+    - docker
+
+# This is not working as expected right now
+#- name: Harden box from ssh attacks
+#  hosts:
+#    - ansible-dev-1
+#  remote_user: deploy
+#  roles:
+#    - geerlingguy.security
+#  become: yes

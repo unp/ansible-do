@@ -1,0 +1,25 @@
+- name: install network debugging tools
+  package:
+    name: 
+      - arping
+      - arp-scan
+      - bind9-host
+      - dhcping
+      - dnsutils
+      - ethtool
+      - ifupdown
+      - iptables
+      - iputils-ping
+      - jq
+      - lshw
+      - mtr
+      - netcat-traditional
+      - net-tools
+      - nmap
+      - tcpdump
+      - telnet
+      - tftp-hpa
+      - traceroute
+    state: latest
+  become: yes
+

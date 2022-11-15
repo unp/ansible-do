@@ -1,0 +1,20 @@
+- name: install byobu
+  package:
+    name:
+    - byobu
+    state: latest
+  become: yes
+
+- name: Create .byobu in root
+  file: path=/root/.byobu/ state=directory owner={{ ansible_user_id }} group=root mode=0755
+  become: yes
+
+- name: Copy byobu config to root
+  copy: src=files/byobu.keybindings.tmux dest=/root/.byobu/keybindings.tmux owner={{ ansible_user_id }} group=root mode=0755
+  become: yes
+
+- name: Create .byobu in user
+  file: path=/home/{{ ansible_user_id }}/.byobu/ state=directory owner={{ ansible_user_id }} group={{ ansible_user_id }} mode=0755
+
+- name: Copy byobu config to user
+  copy: src=files/byobu.keybindings.tmux dest=/home/{{ ansible_user_id }}/.byobu/keybindings.tmux owner={{ ansible_user_id }} group={{ ansible_user_id }} mode=0755

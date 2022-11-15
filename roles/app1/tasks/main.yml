@@ -1,0 +1,42 @@
+- name: Ensures app1 html dir exists
+  file: path=/app1/nginx/html state=directory
+  become: yes
+- name: Move html file
+  copy:
+    src: index.html
+    dest: /app1/nginx/html/index.html
+  become: yes
+
+- name: Ensures app1 html dir exists
+  file: path=/app1/nginx/html/css state=directory
+  become: yes
+- name: Move css file
+  copy:
+    src: style.css
+    dest: /app1/nginx/html/css/style.css
+  become: yes
+
+- name: Ensures app1 html dir exists
+  file: path=/app1 state=directory
+  become: yes
+- name: Move config file
+  copy:
+    src: nginx.conf
+    dest: /app1/nginx.conf
+  become: yes
+
+- name: Restart app1 container
+  community.docker.docker_container:
+    name: app1
+    image: nginx:1.22.1
+    state: started
+    restart: yes
+    restart_policy: always
+    pull: yes
+    volumes:
+      - "/app1/nginx/html:/usr/share/nginx/html:ro"
+      - "/app1/nginx.conf:/etc/nginx/nginx.conf:ro"
+    ports:
+      - "80:80"
+    env:
+      TZ: "America/New_York"
